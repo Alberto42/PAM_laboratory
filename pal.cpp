@@ -22,6 +22,11 @@ int main() {
     }
 
     pam_set_item(pamh, PAM_USER_PROMPT, "Kto to?: ");
+    retval = pam_acct_mgmt(pamh,0);
+    if (retval != PAM_SUCCESS) {
+        fprintf(stderr, "Nie udalo sie zalogowac!\n");
+        exit(3);
+    }
     retval = pam_authenticate(pamh, 0);  /* próba autoryzacji */
     if (retval != PAM_SUCCESS) {
         fprintf(stderr, "Nie udalo sie zalogowac!\n");
